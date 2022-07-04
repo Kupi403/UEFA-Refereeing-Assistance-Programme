@@ -16,31 +16,44 @@ textarea,
 button {
 	font-family: 'Baloo 2', sans-serif;
 }
-a{
+a {
 	text-decoration: none;
 }
 
 body {
 	min-height: 100vh;
-	background-image: url('../img/background-menu.jpg');
+	background-image: url('../img/assets/background-small.jpg');
 	background-position: center;
 	background-size: cover;
 	background-attachment: fixed;
+}
+
+.body {
+	position: relative;
+}
+
+.body-main {
+	background-image: url('../img/assets/background-menu-small.jpg');
 }
 
 .wrapper {
 	margin: 0 auto;
 	max-width: 1400px;
 	width: 100%;
-	padding: 2em;
+}
+
+.section-padding {
+	padding: 1em;
 }
 
 .nav {
-	display: flex;
-	align-items: center;
+	&__box {
+		display: flex;
+		align-items: center;
+	}
 
 	&__logo {
-		width: 50px;
+		width: 80px;
 	}
 
 	&__logo img {
@@ -50,11 +63,10 @@ body {
 
 	&__title {
 		font-size: 2.6rem;
-		margin-left: 1em;
+		text-transform: uppercase;
 		color: #fff;
 	}
 }
-
 
 .menu {
 	display: flex;
@@ -76,6 +88,15 @@ body {
 		font-family: inherit;
 		cursor: pointer;
 		transition: background-color 0.3s;
+
+		&--expandable {
+			justify-content: space-between;
+		}
+
+		&:hover,
+		&:focus {
+			background-color: rgba(22, 59, 193);
+		}
 	}
 	&__title-box {
 		display: flex;
@@ -85,33 +106,23 @@ body {
 		justify-content: space-between;
 	}
 
-	&__item--expandable {
-		justify-content: space-between;
-	}
-
-	&__item:hover,
-	&__item:focus {
-		background-color: rgba(22, 59, 193);
-	}
-
 	&__letter {
 		display: flex;
-
 		align-items: center;
 		width: 30px;
 		position: relative;
 		margin-right: 1em;
 		font-size: 1.6rem;
 		color: rgba(255, 255, 255, 0.81);
-	}
 
-	&__letter::after {
-		position: absolute;
-		left: calc(100% + 0.5em);
-		height: 100%;
-		width: 3px;
-		background-color: #fff;
-		content: '';
+		&::after {
+			position: absolute;
+			left: calc(100% + 0.5em);
+			height: 100%;
+			width: 3px;
+			background-color: #fff;
+			content: '';
+		}
 	}
 }
 .accordion {
@@ -120,7 +131,6 @@ body {
 		padding: 1em;
 		background-color: rgba(37, 77, 221, 0.7);
 	}
-
 
 	&__item {
 		font-size: 1.4rem;
@@ -138,6 +148,216 @@ body {
 
 .active {
 	display: block;
+}
+
+.gallery {
+	&__container {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		flex-wrap: wrap;
+	}
+
+	&__item {
+		width: calc(50% - 1em);
+		margin: 0.5em;
+		cursor: pointer;
+
+		&:hover .gallery__thumbnail::after,
+		&:focus .gallery__thumbnail::after {
+			opacity: 1;
+		}
+
+		&:hover .gallery__thumbnail img,
+		&:focus .gallery__thumbnail img {
+			transform: scale(1.05);
+		}
+	}
+
+	&__thumbnail {
+		position: relative;
+		height: 120px;
+		overflow: hidden;
+		pointer-events: none;
+
+		&::after {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			border: 1px solid #fff;
+			opacity: 0;
+			transition: opacity 0.3s;
+			content: '';
+			pointer-events: none;
+		}
+
+		img {
+			width: 100%;
+			height: 100%;
+			transition: transform 0.3s;
+		}
+
+		&::before {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			background-image: linear-gradient(0deg, rgba(17, 17, 17, 1) 0%, rgba(255, 255, 255, 0) 100%);
+			content: '';
+			pointer-events: none;
+			z-index: 10;
+		}
+
+		&--number {
+			position: absolute;
+			bottom: 0;
+			left: 0.5em;
+			font-size: 2.2rem;
+			color: #fff;
+			z-index: 20;
+			pointer-events: none;
+		}
+	}
+}
+
+.modal {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.795);
+	z-index: 100;
+	overflow: auto;
+
+	&__title{
+		color: #fff;
+		font-size: 2.4rem;
+	}
+
+	&__close-btn {
+		position: absolute;
+		top: 0;
+		right: 0;
+		button {
+			padding: 1.5em;
+			border: none;
+			background: none;
+			color: #fff;
+			cursor: pointer;
+		}
+	}
+
+	&__box {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		background-color: #0a1438;
+	}
+	&__video-box {
+		width: 100%;
+		min-height: 200px;
+		height: 50vh;
+		max-height: 600px;
+		margin-top: 3em;
+	}
+
+	&__decision-btn {
+		width: 100%;
+		padding: 0.5em 1em;
+		margin: 0.5em;
+		border: 3px solid #fff;
+		font-size: 2rem;
+		background: none;
+		color: #fff;
+		text-transform: uppercase;
+		cursor: pointer;
+		transition: color 0.3s, background-color 0.3s;
+
+		&:hover {
+			background-color: #fff;
+			color: #000;
+		}
+	}
+
+	// &__decision-box {
+	// 	display: flex;
+	// 	justify-content: space-around;
+	// 	width: 100%;
+	// }
+
+	&__buttons {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		&-help {
+			position: relative;
+		}
+	}
+
+	&__decision-info {
+		color: #fff;
+		font-size: 2rem;
+	}
+
+	&__decision-box {
+		min-height: 200px;
+		max-width: 100%;
+		img {
+			width: 100%;
+		}
+	}
+}
+
+.help {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	&__body {
+		visibility: hidden;
+		opacity: 0;
+		position: absolute;
+		position: absolute;
+		left: 50%;
+		transform: translate(-50%, -70%);
+		padding: 1em;
+		width: 150px;
+		max-height: 200px;
+		background: #fff;
+		overflow: auto;
+		transition: opacity .3s;
+
+		p {
+			color: #000;
+			font-size: 1rem;
+			margin-bottom: 1em;
+			text-transform: uppercase;
+		}
+		p:last-of-type {
+			margin-bottom: 0;
+		}
+
+		span {
+			font-weight: bold;
+		}
+	}
+
+	&:hover &__body,
+	&:focus &__body {
+		visibility: visible;
+		opacity: 1;
+	}
+}
+
+.hidden {
+	visibility: hidden;
 }
 
 @media (min-width: 400px) {
@@ -165,16 +385,76 @@ body {
 			font-size: 1.8rem;
 		}
 	}
+
+	.gallery {
+		&__thumbnail {
+			height: 150px;
+		}
+	}
 }
 
-@media (min-width: 768px){
-    .nav {
-        &__logo {
-            width: 100px;
-        }
-    
-        &__title {
-            font-size: 3.6rem;
-        }
-    }
+@media (min-width: 576px) {
+	.gallery {
+		&__container {
+			justify-content: start;
+		}
+
+		&__item {
+			width: calc(33% - 1em);
+		}
+
+		&__thumbnail {
+			&--number {
+				font-size: 2.6rem;
+			}
+		}
+	}
+}
+
+@media (min-width: 768px) {
+	.nav {
+		&__logo {
+			width: 100px;
+		}
+
+		&__title {
+			font-size: 3.6rem;
+		}
+	}
+	.gallery {
+		&__thumbnail {
+			height: 200px;
+		}
+	}
+
+	
+	.help {
+		&__body {
+			max-height: 250px;
+			width: 300px;
+
+			p {
+				color: #000;
+				font-size: 1.4rem;
+			}
+		}
+	}
+}
+
+@media (min-width: 1200px) {
+	.gallery {
+		&__container {
+			justify-content: start;
+		}
+
+		&__item {
+			width: calc(25% - 1em);
+		}
+
+		&__thumbnail {
+			&--number {
+				font-size: 3.2rem;
+			}
+		}
+	}
 }

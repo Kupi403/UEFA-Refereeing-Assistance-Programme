@@ -2,30 +2,41 @@
 <html lang="pl">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
-<script src="https://kit.fontawesome.com/6f40eb39ae.js" crossorigin="anonymous"></script>
-    <title>Document</title>
+
+
+    <title>UEFA RAP - Strona główna</title>
     <link rel="stylesheet" href="./dist/css/main.min.css">
 </head>
 
-<body>
+<body class="body-main">
 
-    <div class="wrapper">
+
     <nav class="nav">
-            <div class="nav__logo"><a href="#"><img src="./dist/img/uefa-logo-100x100.png" alt="UEFA Logo"></a></div>
-            <p class="nav__title">UEFA 2022:1</p>
-        </nav>
-    </div>
+        <div class="wrapper">
+            <div class="nav__box section-padding">
+                <div class="nav__logo"><a href="index.html"><img src="./dist/img/assets/uefa-logo-100x100.png"
+                            alt="UEFA Logo"></a>
+                </div>
+                <div class="nav__title-box">
+                    <p class="nav__title page-title">UEFA RAP 2022:1</p>
+                </div>
+            </div>
+
+        </div>
+    </nav>
+
 
     <main class="main">
         <div class="wrapper">
 
-            <div class="menu">
+            <div class="menu section-padding">
 
                 <button class="menu__item menu__item--expandable">
                     <div class="menu__title-box"><span class="menu__letter">a-g</span>
@@ -35,7 +46,7 @@
                 </button>
 
                 <div class="accordion__info">
-                    <a href="#" class="menu__item accordion__item">
+                    <a href="przewinienia.html" class="menu__item accordion__item">
                         <p>przewinienia (a1 - a49)</p>
                     </a>
                     <a href="#" class="menu__item accordion__item">
@@ -100,44 +111,7 @@
 
             </div>
 
-            
 
-            <!-- <div class="accordion">
-                <div class="accordion-box">
-                    <button class="accordion-btn">
-                        <b>🍸 </b> Opcja 1
-                    </button>
-                    <div class="accordion-info">
-                        <p class="accordion-info-text">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime unde ea corporis, nisi
-                            repellat obcaecati.
-                            Omnis rerum aliquam magnam. Porro?
-                        </p>
-                    </div>
-                    <button class="accordion-btn">
-                        <b>🥓 </b> Opcja 2
-                    </button>
-                    <div class="accordion-info">
-                        <p class="accordion-info-text">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime unde ea corporis, nisi
-                            repellat obcaecati.
-                            Omnis rerum aliquam magnam. Porro?
-                        </p>
-                    </div>
-                    <button class="accordion-btn">
-                        <b>🔔 </b> Opcja 3
-                    </button>
-                    <div class="accordion-info">
-                        <p class="accordion-info-text">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime unde ea corporis, nisi
-                            repellat obcaecati.
-                            Omnis rerum aliquam magnam. Porro?
-                        </p>
-                    </div>
-                </div>
-            </div> -->
-
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
             <script src="../dist/js/main.min.js"></script>
         </div>
     </main>
