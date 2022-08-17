@@ -25,19 +25,19 @@ a {
 body {
 	position: relative;
 	min-height: 100vh;
+	padding-bottom: 5em;
 	background-image: url('../img/assets/background-small.jpg');
 	background-position: center;
 	background-size: cover;
 	background-attachment: fixed;
 	overflow-x: hidden;
 }
+.body-main {
+	background-image: url('../img/assets/background-menu-small.jpg');
+}
 
 .body-lock {
 	overflow: hidden;
-}
-
-.body-main {
-	background-image: url('../img/assets/background-menu-small.jpg');
 }
 
 .wrapper {
@@ -50,7 +50,19 @@ body {
 	padding: 1em;
 }
 
+.hidden {
+	visibility: hidden;
+}
+
+.none {
+	display: none;
+}
+
+// NAVIGATION
+
 .nav {
+	display: flex;
+	align-items: stretch;
 	position: sticky;
 	top: 0;
 	height: 80px;
@@ -88,6 +100,7 @@ body {
 		font-size: 1.4rem;
 		text-transform: uppercase;
 		color: c.$pure-white;
+		line-break: auto;
 	}
 
 	&__burger-nav {
@@ -97,12 +110,37 @@ body {
 		width: 100vw;
 		height: 100vh;
 		padding: 2em;
-		background-color: c.$main;
+		background-color: c.$main-opacity;
 		transform: translateY(0);
 		transition: transform 0.5s ease-in-out;
 		z-index: -1;
 		overflow: auto;
 	}
+}
+
+.accordion {
+	&__info {
+		display: none;
+		padding: 1em;
+		background-color: c.$accordion-opacity;
+	}
+
+	&__item {
+		font-size: 1.4rem;
+	}
+}
+
+.fa-chevron-down {
+	transform: rotate(0);
+	transition: transform 0.3s;
+}
+
+.rotate {
+	transform: rotate(180deg);
+}
+
+.active {
+	display: block;
 }
 
 .main-nav {
@@ -180,6 +218,8 @@ body {
 	transform: rotate(45deg);
 }
 
+// MENU
+
 .menu {
 	display: flex;
 	flex-direction: column;
@@ -195,12 +235,11 @@ body {
 		padding: 1em;
 		margin-top: 0.5em;
 		width: 100%;
-		text-align: center;
 		color: c.$pure-white;
 		border: none;
 		background-color: c.$main-opacity;
 		text-transform: uppercase;
-		font-size: 1.6rem;
+		font-size: 1.4rem;
 		font-family: inherit;
 		cursor: pointer;
 		transition: background-color 0.3s;
@@ -214,6 +253,7 @@ body {
 			background-color: c.$main;
 		}
 	}
+
 	&__title-box {
 		display: flex;
 	}
@@ -241,30 +281,8 @@ body {
 		}
 	}
 }
-.accordion {
-	&__info {
-		display: none;
-		padding: 1em;
-		background-color: c.$accordion-opacity;
-	}
 
-	&__item {
-		font-size: 1.4rem;
-	}
-}
-
-.fa-chevron-down {
-	transform: rotate(0);
-	transition: transform 0.3s;
-}
-
-.rotate {
-	transform: rotate(180deg);
-}
-
-.active {
-	display: block;
-}
+// GALLERY
 
 .gallery {
 	&__container {
@@ -337,6 +355,8 @@ body {
 	}
 }
 
+// MODAL
+
 .modal {
 	height: 100%;
 	width: 100%;
@@ -389,7 +409,6 @@ body {
 	}
 
 	&__btn {
-		width: 100%;
 		min-width: 150px;
 		padding: 1em;
 		margin: 0.5em;
@@ -431,32 +450,76 @@ body {
 		overflow: auto;
 		img {
 			width: 100%;
-			// max-height: 400px;
+		}
+	}
+	&__decision-translation {
+		font-size: 1.4rem;
+		color: c.$main-dark;
+		padding: 1em;
+		background-color: c.$pure-white;
+	}
+
+	&__help-hint {
+		position: relative;
+		svg {
+			cursor: pointer;
 		}
 	}
 
-	&__button-translation{
-		max-width: 300px;
+	&__dictionary {
+		position: absolute;
+		bottom: 150%;
+		right: 0;
+		max-height: 200px;
+		width: 200px;
+		padding: 1em;
+		background-color: c.$pure-white;
+		color: c.$main-dark;
+		overflow: auto;
+
+		p {
+			font-size: 1.4rem;
+			margin-bottom: 0.5em;
+		}
+
+		span {
+			text-transform: uppercase;
+			font-weight: bold;
+		}
 	}
 }
 
+// FOOTER
 
-
-.gif-box {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+.footer {
+	position: absolute;
+	bottom: 0;
 	width: 100%;
-}
+	background-color: c.$main;
 
-.hidden {
-	visibility: hidden;
+	&__box {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+
+		a{
+			color: c.$pure-white;
+			text-decoration: underline;
+		}
+	}
+
+	&__info {
+		color: c.$pure-white;
+		font-size: 1.2rem;
+		text-align: center;
+	}
 }
 
 @media (min-width: 400px) {
 	.nav {
 		&__title {
-			font-size: 3.2rem;
+			font-size: 2.2rem;
 		}
 	}
 	.menu {
@@ -515,6 +578,32 @@ body {
 	.gallery {
 		&__thumbnail {
 			height: 200px;
+		}
+	}
+
+	.footer {
+		&__box {
+			flex-direction: row;
+			justify-content: space-between;
+		}
+
+		&__info {
+			font-size: 1.6rem;
+		}
+	}
+
+	.modal {
+		&__decision-translation {
+			font-size: 2rem;
+		}
+	}
+}
+
+@media (min-width: 992px) {
+	.modal {
+		&__dictionary {
+			width: 300px;
+			max-height: 400px;
 		}
 	}
 }
