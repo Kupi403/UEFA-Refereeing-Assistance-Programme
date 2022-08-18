@@ -2,6 +2,8 @@
 
 An application used to educate football referees based on data from UEFA, who has all copyrights.
 
+Live: https://uefaclips.eu
+
 # Description
 
 Since 2019 UEFA has been no longer publishing its application for Refereeing Assistance Programme and that is why i I've made a decision to create my own project based on UEFA's idea.
