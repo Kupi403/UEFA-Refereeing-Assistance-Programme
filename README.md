@@ -1,6 +1,6 @@
 # UEFA Refereeing Assistance Programme
 
-An application used to educate football referees based on data from UEFA.
+An application used to educate football referees based on data from UEFA, who has all copyrights.
 
 # Description
 
