@@ -54,8 +54,6 @@ axios
 
 		const dictionaryTranslations = res.data.dictionary[bodySymbol]
 
-		
-
 		pageTitle.textContent = res.data[bodySymbol].category
 		document.title = 'UEFA RAP - ' + res.data[bodySymbol].category
 
@@ -87,6 +85,7 @@ axios
 		const clips = document.querySelectorAll('.clip-item')
 		const showModal = e => {
 			modalContainer.classList.remove('hidden')
+			modalContainer.classList.add('modal-active')
 			body.classList.add('body-lock')
 
 			const modalTemplate = modalTemplateTag.content.cloneNode(true),
@@ -104,9 +103,9 @@ axios
 				decisionTranslation = modalTemplate.querySelector('.decision-translation'),
 				additionalExplanationImg = modalTemplate.querySelector('.additional-img')
 
-				if(!dictionaryTranslations){
-					helpBtn.style.display = "none"
-				}
+			if (!dictionaryTranslations) {
+				helpBtn.style.display = 'none'
+			}
 
 			const addTranslation = () => {
 				for (const item in dictionaryTranslations) {
@@ -120,6 +119,7 @@ axios
 
 			const toggleDictionary = () => {
 				dictionary.classList.toggle('none')
+				helpBtn.classList.toggle('opacity')
 			}
 
 			helpBtn.addEventListener('click', toggleDictionary)
@@ -158,6 +158,7 @@ axios
 
 			const closeModal = parent => {
 				modalContainer.classList.add('hidden')
+				modalContainer.classList.remove('modal-active')
 				body.classList.remove('body-lock')
 				while (parent.firstChild) {
 					parent.removeChild(parent.firstChild)
@@ -273,10 +274,12 @@ axios
 				closeModal(modalContainer)
 			})
 			modalContainer.addEventListener('click', e => {
-				if (e.target.classList.value == 'modal__container modal-container' || e.target.classList.value == 'modal') {
+				if (e.target.classList.value == 'modal__container modal-container modal-active' || e.target.classList.value == 'modal') {
 					closeModal(modalContainer)
 				}
 			})
+
+			
 
 			nextBtn.addEventListener('click', e => {
 				const modalIndex = parseInt(e.target.closest('.modal__box').dataset.index)

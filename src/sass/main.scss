@@ -58,6 +58,10 @@ body {
 	display: none;
 }
 
+.opacity {
+	opacity: 0.5;
+}
+
 // NAVIGATION
 
 .nav {
@@ -383,7 +387,7 @@ body {
 		position: absolute;
 		top: 0;
 		right: 0;
-		button {
+		.close {
 			padding: 1.5em;
 			border: none;
 			background: none;
@@ -503,7 +507,7 @@ body {
 		justify-content: center;
 		flex-direction: column;
 
-		a{
+		a {
 			color: c.$pure-white;
 			text-decoration: underline;
 		}
@@ -622,6 +626,14 @@ body {
 			&--number {
 				font-size: 3.2rem;
 			}
+		}
+	}
+	.modal {
+		.close-btn{
+			padding: 2em;
+		}
+		.close {
+			transform: scale(2);
 		}
 	}
 }
