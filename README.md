@@ -6,7 +6,7 @@ Live: https://uefaclips.eu
 
 # Description
 
-Since 2019 UEFA has been no longer publishing its application for Refereeing Assistance Programme and that is why i I've made a decision to create my own project based on UEFA's idea.
+Since 2020 UEFA has been no longer publishing its application for Refereeing Assistance Programme and that is why i I've made a decision to create my own project based on UEFA's idea.
 
 
 Application is in Polish language because at first I wanted to publish for the use of Polish referees.
