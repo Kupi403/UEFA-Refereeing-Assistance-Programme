@@ -54,6 +54,11 @@ body {
 	visibility: hidden;
 }
 
+.disabled{
+	opacity: .3;
+	pointer-events: none;
+}
+
 .none {
 	display: none;
 }
