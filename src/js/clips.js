@@ -15,6 +15,8 @@ const clipTemplateTag = document.querySelector('.clip-template'),
 
 const URL = `https://klajek-10-api.herokuapp.com/clips`
 
+console.clear()
+
 const handleNav = () => {
 	const burgerNav = document.querySelector('.nav__burger-nav')
 	accordionInfos.forEach(el => {
@@ -135,6 +137,7 @@ axios
 				iframeBox.setAttribute('src', video)
 				decisionImgBox.setAttribute('src', decisionImg)
 				decisionImgBox.setAttribute('alt', `Decyzja klipu ${clipName}`)
+
 				if (dataSymbol.hasOwnProperty('translation')) {
 					const translation = data[clipId].translation
 					decisionTranslation.style.display = 'block'
@@ -142,6 +145,15 @@ axios
 				} else {
 					decisionTranslation.style.display = 'none'
 				}
+
+				if (clipId === 0) {
+					previousBtn.classList.add('disabled')
+				}
+
+				if (clipId === arrLength - 1) {
+					nextBtn.classList.add('disabled')
+				}
+
 				if (data[clipId].hasOwnProperty('additional-explanation')) {
 					const additionalImg = data[clipId].explanation
 					const additionalTranslate = data[clipId].translation
@@ -165,6 +177,37 @@ axios
 				}
 			}
 
+			const putNewData = (iframe, decisionImg, data, title, clipTitle, newIndex) => {
+				title.textContent = clipTitle
+				modalBox.dataset.index = newIndex
+
+				iframe.setAttribute('src', data.video)
+				decisionImg.setAttribute('src', data.decision)
+				decisionImg.setAttribute('alt', `Decyzja klipu ${clipTitle}`)
+
+				if (dataSymbol.hasOwnProperty('translation')) {
+					const translation = data.translation
+					decisionTranslation.textContent = translation
+				}
+			}
+			const handleTranslation = (data, clipTitle) => {
+				if (data.hasOwnProperty('additional-explanation') && !dataSymbol.hasOwnProperty('translation')) {
+					if (data.hasOwnProperty('additional-explanation')) {
+						const additionalImg = data.explanation
+						const additionalTranslate = data.translation
+						additionalExplanationImg.setAttribute('src', additionalImg)
+						additionalExplanationImg.setAttribute('alt', `Wyjaśnienie klipu ${clipTitle}`)
+						decisionTranslation.style.display = 'block'
+						decisionTranslation.textContent = additionalTranslate
+					}
+				} else if (!data.hasOwnProperty('additional-explanation') && !dataSymbol.hasOwnProperty('translation')) {
+					additionalExplanationImg.setAttribute('src', '')
+					additionalExplanationImg.setAttribute('alt', '')
+					decisionTranslation.textContent = ''
+					decisionTranslation.style.display = 'none'
+				}
+			}
+
 			const nextClip = e => {
 				const modalBox = e.target.closest('.modal__box'),
 					title = modalBox.querySelector('.clip-title'),
@@ -179,87 +222,28 @@ axios
 
 				let newIndex = clipIndex + 1
 				const clipTitle = `${bodySymbol}${newIndex + 1}`
-				title.textContent = clipTitle
-				modalBox.dataset.index = newIndex
 
-				if (clipIndex === arrLength - 1) {
-					modalBox.dataset.index = clipIndex
-					const nextBtn = e.target.closest('.modal__box').querySelector('.next-btn')
-					nextBtn.classList.add('hidden')
-				} else {
-					iframe.setAttribute('src', nextData.video)
-					decisionImg.setAttribute('src', nextData.decision)
-					decisionImg.setAttribute('alt', `Decyzja klipu ${clipTitle}`)
-
-					if (dataSymbol.hasOwnProperty('translation')) {
-						const translation = nextData.translation
-						decisionTranslation.textContent = translation
-					}
-
-					if (nextData.hasOwnProperty('additional-explanation') && !dataSymbol.hasOwnProperty('translation')) {
-						if (nextData.hasOwnProperty('additional-explanation')) {
-							const additionalImg = nextData.explanation
-							const additionalTranslate = nextData.translation
-							additionalExplanationImg.setAttribute('src', additionalImg)
-							additionalExplanationImg.setAttribute('alt', `Wyjaśnienie klipu ${clipTitle}`)
-							decisionTranslation.style.display = 'block'
-							decisionTranslation.textContent = additionalTranslate
-						}
-					} else if (!nextData.hasOwnProperty('additional-explanation') && !dataSymbol.hasOwnProperty('translation')) {
-						additionalExplanationImg.setAttribute('src', '')
-						additionalExplanationImg.setAttribute('alt', '')
-						decisionTranslation.textContent = ''
-						decisionTranslation.style.display = 'none'
-					}
-				}
+				putNewData(iframe, decisionImg, nextData, title, clipTitle, newIndex)
+				handleTranslation(nextData, clipTitle)
 			}
 
 			const previousClip = e => {
 				const modalBox = e.target.closest('.modal__box'),
+					title = modalBox.querySelector('.clip-title'),
 					iframe = modalBox.querySelector('.iframe'),
 					decisionImg = modalBox.querySelector('.decision-img'),
 					decisionTranslation = modalBox.querySelector('.decision-translation'),
-					additionalExplanationImg = modalBox.querySelector('.additional-img'),
-					title = modalBox.querySelector('.clip-title')
+					additionalExplanationImg = modalBox.querySelector('.additional-img')
 
 				let clipIndex = parseInt(modalBox.dataset.index)
 
-				let newIndex = clipIndex - 1
-				const clipTitle = `${bodySymbol}${clipIndex}`
-				title.textContent = clipTitle
-				modalBox.dataset.index = newIndex
-
 				const prevData = data[clipIndex - 1]
 
-				if (clipIndex === 0) {
-					const previousBtn = e.target.closest('.modal__box').querySelector('.previous-btn')
-					previousBtn.classList.add('hidden')
-				} else {
-					iframe.setAttribute('src', prevData.video)
-					decisionImg.setAttribute('src', prevData.decision)
-					decisionImg.setAttribute('alt', `Decyzja klipu ${clipTitle}`)
-					if (dataSymbol.hasOwnProperty('translation')) {
-						decisionTranslation.style.display = 'block'
-						const translation = prevData.translation
-						decisionTranslation.textContent = translation
-					}
+				let newIndex = clipIndex - 1
+				const clipTitle = `${bodySymbol}${clipIndex}`
 
-					if (prevData.hasOwnProperty('additional-explanation') && !dataSymbol.hasOwnProperty('translation')) {
-						if (prevData.hasOwnProperty('additional-explanation')) {
-							const additionalImg = prevData.explanation
-							const additionalTranslate = prevData.translation
-							additionalExplanationImg.setAttribute('src', additionalImg)
-							additionalExplanationImg.setAttribute('alt', `Wyjaśnienie klipu ${clipTitle}`)
-							decisionTranslation.style.display = 'block'
-							decisionTranslation.textContent = additionalTranslate
-						}
-					} else if (!prevData.hasOwnProperty('additional-explanation') && !dataSymbol.hasOwnProperty('translation')) {
-						additionalExplanationImg.setAttribute('src', '')
-						additionalExplanationImg.setAttribute('alt', '')
-						decisionTranslation.textContent = ''
-						decisionTranslation.style.display = 'none'
-					}
-				}
+				putNewData(iframe, decisionImg, prevData, title, clipTitle, newIndex)
+				handleTranslation(prevData, clipTitle)
 			}
 
 			const toggleVisibility = item => {
@@ -274,35 +258,38 @@ axios
 				closeModal(modalContainer)
 			})
 			modalContainer.addEventListener('click', e => {
-				if (e.target.classList.value == 'modal__container modal-container modal-active' || e.target.classList.value == 'modal') {
+				if (
+					e.target.classList.value == 'modal__container modal-container modal-active' ||
+					e.target.classList.value == 'modal'
+				) {
 					closeModal(modalContainer)
 				}
 			})
 
-			
-
 			nextBtn.addEventListener('click', e => {
-				const modalIndex = parseInt(e.target.closest('.modal__box').dataset.index)
+				const modalIndex = parseInt(e.target.closest('.modal__box').dataset.index) + 1
 				if (modalIndex !== -1) {
 					const previousBtn = e.target.closest('.modal__box').querySelector('.previous-btn')
-					previousBtn.classList.remove('hidden')
+					previousBtn.classList.remove('disabled')
 				}
-				if (modalIndex < arrLength - 1) {
+				if (modalIndex === arrLength - 1) {
 					nextClip(e)
+					nextBtn.classList.add('disabled')
 				} else {
-					nextBtn.classList.add('hidden')
+					nextClip(e)
 				}
 			})
 
 			previousBtn.addEventListener('click', e => {
-				const modalIndex = parseInt(e.target.closest('.modal__box').dataset.index)
-				if (modalIndex === arrLength - 1) {
+				const modalIndex = parseInt(e.target.closest('.modal__box').dataset.index) - 1
+				if (modalIndex === arrLength - 2) {
 					const nextBtn = e.target.closest('.modal__box').querySelector('.next-btn')
-					nextBtn.classList.remove('hidden')
+					nextBtn.classList.remove('disabled')
 				}
 
 				if (modalIndex === 0) {
-					previousBtn.classList.add('hidden')
+					previousClip(e)
+					previousBtn.classList.add('disabled')
 				} else {
 					previousClip(e)
 				}
